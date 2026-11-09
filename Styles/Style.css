@@ -327,130 +327,166 @@ footer {
 
 
 @media (max-width: 768px) {
-.headerstyle {
-    grid-template-columns: 10% 90%;
-    padding: 5px;
-}
+    main {
+        font-size: 14px;
+    }
 
-h1 {
-    letter-spacing: 5px;
-    font-size: 20px;
-    font-weight: 500;
-}
+    h1 {
+        font-size: 24px;
+        letter-spacing: 3px;
+    }
 
-section {
-    border-radius: 7px;
-}
+    .mainpage > h1 {
+        margin: 24px 0 16px;
+        text-align: center;
+    }
 
-main {
-    font-size: 10px;
-}
+    section {
+        max-width: 90%;
+        margin: 16px auto;
+        padding: 20px;
+        border-radius: 20px;
+    }
 
-.navbar {
-    width: 65%;
-    padding: 2px;
-}
+    .others {
+        max-width: 90%;
+        margin-left: auto;
+    }
 
-#logo {
-    width: 70px;
-    height: 70px;
-}
+    .headerstyle {
+        grid-template-columns: 15% 85%;
+        padding: 5px;
+    }
 
-#logoRef {
-    width: 120px;
-    height: 120px;
-}
+    .navbar {
+        width: 65%;
+        padding: 2px;
+    }
 
-.navbuttons {
-    font-size: 9px;
-    padding: 6px 8px;
-}
+    .navbuttons {
+        font-size: 11px;
+        padding: 6px 8px;
+    }
 
-footer {
-    font-size: 10px;
-    width: 70%;
-    margin-left: 13%;
-}
+    #logo {
+        width: 70px;
+        height: 70px;
+    }
 
-.artexhibit{
-    padding-top: 20px;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 50px;
-    margin-left: 10px;
-}
+    #logoRef {
+        width: 120px;
+        height: 120px;
+    }
 
-.artexhibitdiv {
-    margin-top: 20px;;
-    padding: 20px;
-    width: 10%;
-    min-width: 80px;
-    height: 15%;
-    min-height: 120px;
-}
+    .demovideo video {
+        width: 100%;
+        height: auto;
+    }
 
-.artexhibitdiv img {
-    padding: 3px;
-    width: 10%;
-    min-width: 70px;
-    height: 15%;
-    min-height: 110px;
-}
+    /* Works page: stack everything in one column */
+    .artexhibit {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        margin: 0;
+        padding: 0;
+    }
 
-.artexhibittext {
-    margin-left: 30px;
-    padding: 30px;
-    font-size: 9px;
-}
+    .artexhibitgrid,
+    .artexhibitgrid2 {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+    }
 
-.artexhibitgrid {
-    margin-left: 5%;
-    margin-right: 5%;
-    grid-template-columns: 30% 70%;
-    width: 90%;
-    height: 30%;
-}
+    .artexhibitdiv {
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        min-height: 0;
+        margin: 0;
+        padding: 12px;
+    }
 
-.artexhibitgrid2 {
-    margin-left: 5%;
-    margin-right: 5%;
-    align-content: center;
-    grid-template-columns: 70% 30%;
-    width: 90%;
-    height: 30%;
-}
+    .artexhibitdiv img {
+        width: 100%;
+        max-width: 220px;
+        height: auto;
+        min-width: 0;
+        min-height: 0;
+        margin: 0 auto;
+        padding: 0;
+    }
 
-.artimage img{
-	max-height:110px;
-    max-width: 160px;
-}
+    .artexhibittext {
+        width: 100%;
+        margin: 0;
+        padding: 16px;
+        font-size: 14px;
+    }
 
-.artimage video {
-	height: auto;
-	width: 400px;
-}
+    /* Category and gallery pages */
+    .artstyle {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: none;
+    }
 
-.artstyle {
-	grid-template-columns: 1fr 1fr;
-	width: 100%;
-	max-width: 100%;
-	height: 100%;
-	max-height: 100%;
-}
+    .artstylevideo {
+        display: block;
+        width: 90%;
+        height: auto;
+        max-width: 100%;
+        max-height: none;
+        margin: 0 auto;
+    }
 
-.artstylevideo {
-	width: 100%;
-	max-width: 1000px;
-	height: 100%;
-	max-height: 1500px;
-    margin-left: 5%;
-}
+    .items {
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+        margin: 12px auto;
+        padding: 16px;
+    }
 
-.items{
-	padding:10px;
-	border-radius:10px;
-	margin: 15px;
-    min-width: 120px;
-    min-height: 15%;
-}
+    .items img {
+        margin-left: 0;
+    }
 
+    .artimage img {
+        max-width: 100%;
+        max-height: 220px;
+    }
+
+    .artimage video {
+        width: 100%;
+        height: auto;
+    }
+
+    #shoepal {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+
+    .trainingspic img {
+        width: 80%;
+    }
+
+    .linksection {
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    footer {
+        width: 80%;
+        margin: 30px auto;
+        font-size: 12px;
+    }
 }
