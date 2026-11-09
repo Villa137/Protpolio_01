@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="UTF-8" />
@@ -7,6 +7,39 @@
     <link rel="stylesheet" href="Styles/Style.css"/>
     <link rel="stylesheet" href="Styles/reviews.css"/>
     <link rel="icon" type="image/png" href="Images/logo.png"/>
+    <style>
+        .msg-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: min(520px, 100%);
+            margin: 12px auto 0;
+        }
+        .msg-form input,
+        .msg-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.25);
+            color: var(--fg);
+            font: inherit;
+        }
+        .msg-form textarea { resize: vertical; }
+        .msg-form button {
+            align-self: center;
+            padding: 10px 26px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--gradient);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .msg-notice { min-height: 1.4em; font-size: 14px; margin: 6px 0 0; }
+        .msg-notice.ok { color: #b6f0c8; }
+        .msg-notice.err { color: #ffb3b3; }
+    </style>
 </head>
 <body>
     <header class="headerstyle">
@@ -25,11 +58,24 @@
 
     <main class="mainpage">
         <h1>Links</h1>
+
         <section class="linksection">
             <div><a href="https://www.facebook.com/mikel.villa.7/"><h3><span>Facebook</span></h3></a></div>
             <div><a href="https://www.instagram.com/"><h3>Instagram</h3></a></div>
             <div><a href="https://x.com/"><h3>X</h3></a></div>
             <div><a href="https://www.youtube.com/@rexjeanmikelvilla"><h3><span>YouTube</span></h3></a></div>
+        </section>
+
+        <section>
+            <h2><span>Send me a message</span></h2>
+            <p>Leave your name, email, and a message.</p>
+            <form class="msg-form" id="contact-form" novalidate>
+                <input type="text" name="name" maxlength="60" placeholder="Your name">
+                <input type="email" name="email" maxlength="120" placeholder="Your email">
+                <textarea name="message" maxlength="1000" rows="5" placeholder="Your message"></textarea>
+                <button type="submit">Send</button>
+                <p class="msg-notice" id="contact-notice" role="status"></p>
+            </form>
         </section>
 
         <section class="linksection">
@@ -41,6 +87,43 @@
     <footer>
         <span>© Villa, Rex Jean Mikel. All rights reserved.</span>
     </footer>
+
     <script src="Scripts/reviews.js"></script>
+    <script>
+    (function () {
+        var STORE = 'villa-portfolio-messages';
+        var form = document.getElementById('contact-form');
+        var notice = document.getElementById('contact-notice');
+
+        function load() {
+            try { return JSON.parse(localStorage.getItem(STORE)) || []; }
+            catch (e) { return []; }
+        }
+
+        form.addEventListener('submit', function (ev) {
+            ev.preventDefault();
+            var name = form.elements.name.value.trim();
+            var email = form.elements.email.value.trim();
+            var message = form.elements.message.value.trim();
+            var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            if (!name || !emailOk || !message) {
+                notice.className = 'msg-notice err';
+                notice.textContent = 'Please fill in your name, a valid email, and a message.';
+                return;
+            }
+
+            try {
+                var all = load();
+                all.push({ name: name.slice(0, 60), email: email.slice(0, 120), message: message.slice(0, 1000), date: new Date().toISOString() });
+                localStorage.setItem(STORE, JSON.stringify(all));
+            } catch (e) { /* storage unavailable: still show the thanks message */ }
+
+            form.reset();
+            notice.className = 'msg-notice ok';
+            notice.textContent = 'Message sent! Thanks for reaching out.';
+        });
+    })();
+    </script>
 </body>
 </html>
