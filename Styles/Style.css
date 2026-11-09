@@ -383,7 +383,6 @@ footer {
         height: auto;
     }
 
-    /* Works page: stack everything in one column */
     .artexhibit {
         display: flex;
         flex-direction: column;
@@ -427,7 +426,6 @@ footer {
         font-size: 14px;
     }
 
-    /* Category and gallery pages */
     .artstyle {
         display: grid;
         grid-template-columns: 1fr;
