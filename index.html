@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="UTF-8" />
@@ -39,16 +39,130 @@
         </section>
 
         <section>
-            <h1><span>Explore</span></h1>
-            <p>If you get <span>lost</span> and the <span>Navigation Bar</span> is not working, remember,</p><br>
-            <a href="index.html"><img src="Images/logo.png" alt="Logo" id="logoRef"></a><br>
-            <p>The <span>logos</span> will always lead you back <span>here</span>,</p>
+            <h1><span>Top Rated</span></h1>
+            <p>The works visitors rate highest.</p>
+            <div class="artstyle" id="top-works"></div>
+            <p class="rv-muted" id="top-empty"></p>
+            <p><a href="works.html">See all works</a></p>
+        </section>
+
+        <section>
+            <h1><span>Reviews</span></h1>
+            <p id="overall-stats"></p>
+            <ul class="rv-list" id="latest-reviews" style="text-align:left"></ul>
+            <p><a href="links.html">Leave a review</a></p>
         </section>
     </main>
 
     <footer>
         <span>© Villa, Rex Jean Mikel. All rights reserved.</span>
     </footer>
+
     <script src="Scripts/reviews.js"></script>
+    <script>
+    (function () {
+        var STORE = 'villa-portfolio-reviews';
+
+        var WORKS = [
+            ['digital:dangers-of-technology', 'Dangers of Technology', 'Images/Art_Contest3.png', 'digital.html'],
+            ['digital:ser-duncan', 'Ser Duncan the Tall', 'Images/Ser_Duncan_the_Tall.png', 'digital.html'],
+            ['digital:samurai-doggo', 'Samurai Doggo', 'Images/Samurai_Dog_PixelArt.png', 'digital.html'],
+            ['digital:syndra', 'Syndra', 'Images/Syndra_Chibi.png', 'digital.html'],
+            ['digital:my-gf', 'My GF', 'Images/PixelArtGFWithColor.jpg', 'digital.html'],
+            ['traditional:pieces-of-a-whole', 'Pieces of a Whole', 'Images/AbstractArt.jpg', 'traditional.html'],
+            ['traditional:anxiety', 'Anxiety', 'Images/Anxiety.jpg', 'traditional.html'],
+            ['traditional:technology', 'Technology', 'Images/Art_Contest1.jpg', 'traditional.html'],
+            ['traditional:unity', 'Unity', 'Images/Art_Contest2.jpg', 'traditional.html'],
+            ['traditional:chibi-tv', 'Chibi Characters Watching TV', 'Images/Chibi_Characters_Watching_TV.jpg', 'traditional.html'],
+            ['traditional:coffee-art', 'Coffee Art', 'Images/Coffee_Art.jpg', 'traditional.html'],
+            ['traditional:fleeting-time', 'Fleeting Time', 'Images/Fleeting_Moment.jpg', 'traditional.html'],
+            ['traditional:girl-on-a-boat', 'Girl on a Boat', 'Images/Girl_on_a_Boat.jpg', 'traditional.html'],
+            ['traditional:the-archangel', 'The Archangel', 'Images/The_Archangel.jpg', 'traditional.html'],
+            ['traditional:mechanical-god', 'The Mechanical God', 'Images/Deus_Machina.jpg', 'traditional.html'],
+            ['traditional:propagandist', 'The Propagandist', 'Images/The_Propagandist.jpg', 'traditional.html'],
+            ['traditional:revolutionary', 'The Revolutionary', 'Images/The_Revolutionary.jpg', 'traditional.html'],
+            ['traditional:golden-ratio-goat', 'Golden Ratio, Goat', 'Images/Goat_GoldenRatio.jpg', 'traditional.html'],
+            ['traditional:golden-ratio-sundew', 'Golden Ratio, Sundew', 'Images/Sundew_Catching_a_Fly.jpg', 'traditional.html'],
+            ['traditional:paintings', 'Paintings', 'Images/Paintings.jpg', 'traditional.html'],
+            ['traditional:samurai-dog', 'Samurai Dog', 'Images/Samurai_Dog.jpg', 'traditional.html'],
+            ['traditional:me-and-her', 'Me and Her', 'Images/Self_Portrait.jpg', 'traditional.html'],
+            ['others:kopimo', 'Kopimo', 'Images/Commercial_CoverPic.png', 'others.html'],
+            ['others:mahika', 'Mahika', 'Images/Commercial_CoverPic.png', 'others.html'],
+            ['others:uhm', 'Uhm', 'Images/Shoepal.png', 'others.html']
+        ];
+
+        var byKey = {};
+        WORKS.forEach(function (w) { byKey[w[0]] = w; });
+
+        var all;
+        try { all = JSON.parse(localStorage.getItem(STORE)) || {}; }
+        catch (e) { all = {}; }
+
+        function esc(s) {
+            var d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
+        }
+        function stars(n) {
+            n = Math.round(n);
+            return '★'.repeat(n) + '☆'.repeat(5 - n);
+        }
+        function plural(n) { return n + ' review' + (n === 1 ? '' : 's'); }
+        function average(list) {
+            return list.reduce(function (sum, r) { return sum + r.rating; }, 0) / list.length;
+        }
+
+        var ranked = Object.keys(all)
+            .filter(function (k) { return byKey[k] && all[k] && all[k].length; })
+            .map(function (k) { return { w: byKey[k], avg: average(all[k]), count: all[k].length }; })
+            .sort(function (a, b) { return b.avg - a.avg || b.count - a.count; })
+            .slice(0, 3);
+
+        var topEl = document.getElementById('top-works');
+        if (ranked.length) {
+            topEl.innerHTML = ranked.map(function (r) {
+                return '<article class="items">' +
+                    '<a href="' + r.w[3] + '" class="artimage"><img src="' + r.w[2] + '" alt="' + esc(r.w[1]) + '"></a>' +
+                    '<h3>' + esc(r.w[1]) + '</h3>' +
+                    '<p><span class="rv-stars">' + stars(r.avg) + '</span></p>' +
+                    '<p class="rv-muted">' + r.avg.toFixed(1) + ' · ' + plural(r.count) + '</p>' +
+                '</article>';
+            }).join('');
+        } else {
+            document.getElementById('top-empty').textContent =
+                'No ratings yet. Rate a work in its gallery and it will show up here.';
+        }
+
+        var entries = [];
+        Object.keys(all).forEach(function (k) {
+            (all[k] || []).forEach(function (r) { entries.push({ key: k, r: r }); });
+        });
+
+        var statsEl = document.getElementById('overall-stats');
+        var listEl = document.getElementById('latest-reviews');
+        if (entries.length) {
+            var overall = entries.reduce(function (s, e) { return s + e.r.rating; }, 0) / entries.length;
+            statsEl.innerHTML = '<span class="rv-stars">' + stars(overall) + '</span><br>' +
+                '<span class="rv-muted">' + overall.toFixed(1) + ' average · ' + plural(entries.length) + ' across the site</span>';
+
+            entries.sort(function (a, b) {
+                return a.r.date < b.r.date ? 1 : a.r.date > b.r.date ? -1 : 0;
+            });
+
+            listEl.innerHTML = entries.slice(0, 5).map(function (e) {
+                var where = e.key === 'site' ? 'the site' : (byKey[e.key] ? byKey[e.key][1] : 'a work');
+                return '<li>' +
+                    '<div class="rv-head"><strong>' + esc(e.r.name) + '</strong>' +
+                    '<span class="rv-stars rv-small">' + stars(e.r.rating) + '</span>' +
+                    '<time>' + esc(e.r.date) + '</time></div>' +
+                    '<p>' + esc(e.r.comment) + '</p>' +
+                    '<p class="rv-muted">on ' + esc(where) + '</p>' +
+                '</li>';
+            }).join('');
+        } else {
+            statsEl.textContent = 'No reviews yet. Be the first to leave one.';
+        }
+    })();
+    </script>
 </body>
 </html>
