@@ -1,5 +1,5 @@
 :root {
-    --bg: #161a22;
+    --bg: #0d1017;
     --fg: #eeeeee;
     --muted: rgba(225, 223, 245, 0.9);
     --gradient: linear-gradient(to top, rgb(82, 95, 211), rgb(146, 97, 238), rgb(192, 75, 84));
@@ -8,7 +8,7 @@
     --rose: #c04b54;
     --gold: #ffc857;
     --tint-violet: rgba(146, 97, 238, 0.18);
-    --glass: rgba(38, 44, 58, 0.35);
+    --glass: rgba(28, 34, 46, 0.35);
     --glass-strong: rgba(10, 10, 10, 0.72);
     --panel: rgba(125, 125, 126, 0.07);
     --line: rgba(225, 223, 245, 0.25);
