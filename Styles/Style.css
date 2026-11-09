@@ -487,4 +487,22 @@ footer {
         margin: 30px auto;
         font-size: 12px;
     }
+	    .headerstyle {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 8px 5px;
+    }
+
+    .navbar {
+        position: static;
+        right: auto;
+        z-index: auto;
+        width: 100%;
+        max-width: 420px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mainpage {
+        padding: 12px;
+    }
 }
